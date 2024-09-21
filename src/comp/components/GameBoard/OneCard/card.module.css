@@ -1,0 +1,47 @@
+.card {
+    width: 100px;
+    height: 140px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-color: white;
+}
+
+.corner {
+    position: absolute;
+    font-size: 20px;
+}
+
+.topLeft {
+    top: 10px;
+    left: 10px;
+}
+
+.bottomRight {
+    bottom: 10px;
+    right: 10px;
+    text-align: right;
+}
+
+.rank {
+    display: block;
+}
+
+.suit {
+    display: block;
+    font-size: 24px;
+}
+.heart {
+    color: red;
+}
+
+.spade {
+    color: black;
+}
+.club {
+    color: black;
+}
+.diamond {
+    color: red;
+}

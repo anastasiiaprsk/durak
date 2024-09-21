@@ -1,0 +1,9 @@
+.backcard {
+    border-radius: 20px;
+    width: 100px;
+    height: 140px;
+}
+
+.card {
+    z-index: 1;
+}
