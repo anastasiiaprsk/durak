@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "esnext",             // Use ES Module resolution
+    "target": "esnext",             // Target modern JavaScript
+    "allowJs": true,                // Allow importing .js files
+    "resolveJsonModule": true,      // (Optional) if importing .json files
+    "moduleResolution": "node",     // Use Node-style resolution
+    "baseUrl": "./",                // Enable absolute paths if needed
+    "paths": {
+      "*": ["node_modules/*", "src/*"] // Ensure paths resolve correctly
+    }
+  },
+  "include": ["src/**/*"],          // Include your source files
+  "exclude": ["node_modules"]       // Exclude unnecessary files
+}
