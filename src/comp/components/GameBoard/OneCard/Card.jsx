@@ -20,6 +20,7 @@ export const Card = (props) => {
     spades: <span className={`${classes.suit} ${classes.spade}`}>♠️</span>,
   };
 
+
   return (
     <div onClick={props.onClick}>
       <div className={classes.card}>

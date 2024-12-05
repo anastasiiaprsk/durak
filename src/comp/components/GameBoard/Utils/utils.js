@@ -38,15 +38,17 @@ const getCardsByUser = (stack) => {
 
 // выбираем последний элемент из массива и возвращаем массив стек с измененным свойством trump у козырей
 const chooseTrumpSuit = (
-  cardStack,
-  firstPlayer,
-  secondPlayer,
-  table,
-  pairs
+  // cardStack,
+  // firstPlayer,
+  // secondPlayer,
+  // table,
+  // pairs,
+    state
 ) => {
-  const lastItem = cardStack[cardStack.length - 1];
 
-  const cards = cardStack.map((elem) => {
+  const lastItem = state.cardStack[state.cardStack.length - 1];
+
+  const cards = state.cardStack.map((elem) => {
     if (elem.suit === lastItem.suit) {
       return {
         ...elem,
@@ -59,7 +61,7 @@ const chooseTrumpSuit = (
     };
   });
 
-  const firstP = firstPlayer.map((elem) => {
+  const firstP = state.firstPlayer.map((elem) => {
     if (elem.suit === lastItem.suit) {
       return {
         ...elem,
@@ -69,7 +71,7 @@ const chooseTrumpSuit = (
     return { ...elem };
   });
 
-  const secondP = secondPlayer.map((elem) => {
+  const secondP = state.secondPlayer.map((elem) => {
     if (elem.suit === lastItem.suit) {
       return {
         ...elem,
@@ -80,14 +82,17 @@ const chooseTrumpSuit = (
   });
 
   return {
-    cardStack: cards,
-    firstPlayer: firstP,
-    secondPlayer: secondP,
-    table: table,
-    pairs: pairs,
+    // cardStack: cards,
+    // firstPlayer: firstP,
+    // secondPlayer: secondP,
+    // table: table,
+    // pairs: pairs,
+    ...state, cardStack: cards, firstPlayer: firstP, secondPlayer: secondP
   };
 };
 
+
+//  where is comments
 const turnMove = (state) => {
   const filteredArray1 = state.firstPlayer.filter((obj) => obj.trump === true);
   const filteredArray2 = state.secondPlayer.filter((obj) => obj.trump === true);
@@ -113,7 +118,13 @@ const turnMove = (state) => {
   return { ...state, turnOfTheMove: turn };
 };
 
-export const firstDistribution = () => {
+
+//че здесь происходит pizdets
+// собираю все функции из утилс в одну чтобы осуществить первую раздачу карт - сформировать колоду 36 карт,
+// затем раздеть 6 карт первому игроку, после чего очистить колоду, затем раздать карты уже второму пользователю,
+// после чего снова очистить колоду карт.
+// функция должна быть чистой!!!!!!!! чтобы вернуть стейт, нужно сначала его принять - пустым! исправить
+export const firstDistribution = (state) => {
   const cardsStack = getCardStack(initialCardStack);
 
   const firstPlayer = getCardsByUser(cardsStack);
@@ -121,14 +132,13 @@ export const firstDistribution = () => {
   const filter = filterCardStack(cardsStack, firstPlayer);
   const secondPlayer = getCardsByUser(filter);
   const filter2 = filterCardStack(filter, secondPlayer);
-  const table = {};
+  const table = [];
   const pairs = {};
+
+  state = { ...state, cardStack: filter2, firstPlayer: firstPlayer, secondPlayer: secondPlayer };
+
   const choseTrump = chooseTrumpSuit(
-    filter2,
-    firstPlayer,
-    secondPlayer,
-    table,
-    pairs
+    state
   );
   // return chooseTrumpSuit(filter2, firstPlayer, secondPlayer, turnOfTheMove)
   return turnMove(choseTrump);
@@ -136,6 +146,57 @@ export const firstDistribution = () => {
 
 export const tableFunc = (state, clickedCard) => {
   const id = clickedCard.id;
-  const table = (state.table = { id: id });
-  return { ...state, table: table };
+  const table =  [...state.table, clickedCard ]
+  const pairs = {...state.pairs, [id]: {}}
+
+
+  return { ...state, table: table, pairs: pairs, }
 };
+
+
+// what is this
+//создаем массив в котором карты на которые мы кликнули для хода. затем используем это  массив в
+// в компоненте gameBoard чтобы размапить (положить карты которыми ходим на игровую доску)
+
+// !!!!!!!! нужно сделать очистку прямо здесь. мы принимаем стейт, значит его и должны возвращать! не массив рандомный
+export const gameBoardFunc = (state) => {
+  const array = []
+  for(let i = 0; i < state.table.length; i++){
+    for(let j = 0; j < state.firstPlayer.length; j++){
+      if(state.table[i] === state.firstPlayer[j].id){
+        array.push(state.firstPlayer[j])
+      }
+    }
+  }
+  for(let i = 0; i < state.table.length; i++){
+    for(let j = 0; j < state.secondPlayer.length; j++){
+      if(state.table[i] === state.secondPlayer[j].id){
+        array.push(state.secondPlayer[j])
+      }
+    }
+  }
+
+  return {...state, cardsGameBoard: array}
+}
+
+//
+// //need comments
+export const clearPlayers = (player, table) => {
+  const tableIds = table.map(el => el.id)
+
+  return player.filter(el => !tableIds.includes(el.id))
+}
+
+// функция которрую я буду вызывать при клике на карту игрока (если сейчас не его очередь ходить) чтобы
+// записать в ковер карту которой я хочу побить
+export const chooseForCover = (state, clickedCard) => {
+  const cover =  [...state.cover, clickedCard ]
+  return { ...state, cover: cover }
+}
+
+// comment
+export const makeACover = (state, cover) => {
+
+  
+
+}

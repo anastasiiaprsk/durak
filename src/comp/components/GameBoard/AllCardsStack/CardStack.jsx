@@ -2,13 +2,15 @@ import  classes from './stack.module.css'
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {firstDistribution} from "../Utils/utils";
-import {firstDistributionAct} from "../../../reducers/reducer";
+import {firstDistributionAct} from "../../../reducers/reducer.js";
+import {useSelector} from "react-redux";
 
 export const CardStack = () => {
     const dispatch = useDispatch()
+    const state = useSelector(state => state.state)
 
         useEffect(() => {
-            dispatch(firstDistributionAct(firstDistribution()))
+            dispatch(firstDistributionAct(firstDistribution(state)))
         }, [])
 
 
