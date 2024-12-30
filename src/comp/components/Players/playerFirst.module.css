@@ -5,3 +5,8 @@
 .second {
     display: flex;
 }
+
+.display {
+    display: flex;
+    gap: 20px;
+}

@@ -1,3 +1,15 @@
+.gameboardCardContainer {
+    position: relative;
+    margin: 30px;
+}
+
+.gameboardCard {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    rotate: 15deg
+}
+
 .card {
     width: 100px;
     height: 140px;

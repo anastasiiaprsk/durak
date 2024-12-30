@@ -1,0 +1,11 @@
+.bitaButton {
+    background-color: #f1ce86; /* Синий цвет */
+    color: white; /* Белый текст */
+    border: none; /* Без рамки */
+    padding: 10px 20px; /* Внутренний отступ */
+    border-radius: 5px; /* Закруглённые углы */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Курсор "рука" при наведении */
+    transition: background-color 0.3s ease; /* Плавный переход цвета */
+}
+

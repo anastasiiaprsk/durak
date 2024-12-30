@@ -5,10 +5,13 @@
     "allowJs": true,                // Allow importing .js files
     "resolveJsonModule": true,      // (Optional) if importing .json files
     "moduleResolution": "node",     // Use Node-style resolution
-    "baseUrl": "./",                // Enable absolute paths if needed
+    "baseUrl": "./src",                // Enable absolute paths if needed
     "paths": {
-      "*": ["node_modules/*", "src/*"] // Ensure paths resolve correctly
-    }
+      "*": ["node_modules/*", "src/*"], // Ensure paths resolve correctly
+      "hooks/*": ["hooks/*"],
+      "comp/*": ["comp/*"]
+    },
+    "jsx": "react"
   },
   "include": ["src/**/*"],          // Include your source files
   "exclude": ["node_modules"]       // Exclude unnecessary files
